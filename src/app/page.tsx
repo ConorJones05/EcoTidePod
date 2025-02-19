@@ -1,6 +1,5 @@
 "use client";
 
-import { Analytics } from "@vercel/analytics/react";
 import React, { useState } from "react";
 import Card, { CardContent } from "../components/ui/card";
 import Button from "../components/ui/button";
