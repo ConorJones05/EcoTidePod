@@ -6,8 +6,8 @@ import Button from "../components/ui/button";
 
 export default function TideImpactCalculator() {
   const [competitorImpact, setCompetitorImpact] = useState<number>(0.25);
-  const [newProductImpact, setNewProductImpact] = useState<number>(0);
-  const [loadsPerWeek, setLoadsPerWeek] = useState<number>(5);
+  const [newProductImpact] = useState<number>(0);
+  const [loadsPerWeek] = useState<number>(5);
   const [microplasticsSaved, setMicroplasticsSaved] = useState<number | null>(null);
 
   const calculateBenefit = (): void => {
