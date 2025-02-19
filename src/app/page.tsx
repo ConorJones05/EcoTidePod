@@ -39,7 +39,7 @@ export default function TideImpactCalculator() {
     <div className="min-h-screen bg-green-50 flex items-center justify-center p-4">
       <div className="max-w-lg w-full rounded-2xl shadow-xl p-8 bg-white">
         <h1 className="text-3xl font-bold text-green-700 text-center mb-6">
-          Tide Microplastic Impact Calculator
+          Tide EcoPure Plastic Savings Impact Calculator
         </h1>
         <p className="text-center text-gray-700 mb-4">
           Unlike competitors, Tide’s new product contains <strong>zero microplastics</strong>, 
