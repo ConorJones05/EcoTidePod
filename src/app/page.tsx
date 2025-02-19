@@ -7,7 +7,7 @@ import Button from "../components/ui/button";
 export default function TideImpactCalculator() {
   const [competitorImpact] = useState<number>(0.25);
   const [newProductImpact] = useState<number>(0);
-  const [loadsPerWeek] = useState<number>(5);
+  const [loadsPerWeek, setLoadsPerWeek] = useState<number>(5);
   const [microplasticsSaved, setMicroplasticsSaved] = useState<number | null>(null);
 
   const calculateBenefit = (): void => {
@@ -31,8 +31,10 @@ export default function TideImpactCalculator() {
           Tide Microplastic Impact Calculator
         </h1>
         <p className="text-center text-gray-700 mb-4">
-          Unlike competitors, Tide's new product contains <strong>zero microplastics</strong>, help reduce the 8,000 tons of plastics put into the water. 
-          Learn more in this <a href="https://www.euronews.com/green/2024/03/14/should-you-stop-using-detergent-pods-heres-how-to-reduce-microplastic-pollution-in-your-la" className="text-blue-600 underline" target="_blank"> article</a>.
+          Unlike competitors, Tide’s new product contains <strong>zero microplastics</strong>, 
+          helping reduce the 8,000 tons of plastics put into the water. 
+          Learn more in this <a href="https://www.euronews.com/green/2024/03/14/should-you-stop-using-detergent-pods-heres-how-to-reduce-microplastic-pollution-in-your-la" 
+          className="text-blue-600 underline" target="_blank">article</a>.
         </p>
 
         <div className="mb-6">
