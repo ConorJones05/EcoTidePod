@@ -1,28 +1,39 @@
 "use client";
 
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
 import React, { useState } from "react";
 import Card, { CardContent } from "../components/ui/card";
 import Button from "../components/ui/button";
+
 
 export default function TideImpactCalculator() {
   const [competitorImpact] = useState<number>(0.25);
   const [newProductImpact] = useState<number>(0);
   const [loadsPerWeek, setLoadsPerWeek] = useState<number>(5);
-  const [microplasticsSaved, setMicroplasticsSaved] = useState<number | null>(null);
+  const [microplasticsSaved, setMicroplasticsSaved] = useState<{ weekly: number, lifetime: number } | null>(null);
+
+  const LIFETIME_YEARS = 50;
+  const BOTTLE_GRAMS = 6;
+  const CREDIT_CARD_GRAMS = 5;
+  const JUG_KG = 0.254;
+  const CAP_GRAMS = 2.22;
 
   const calculateBenefit = (): void => {
-    const competitorRelease = competitorImpact * loadsPerWeek;
-    const newProductRelease = newProductImpact * loadsPerWeek;
-    const saved = competitorRelease - newProductRelease;
-    setMicroplasticsSaved(saved);
+    const competitorReleaseWeekly = competitorImpact * loadsPerWeek;
+    const newProductReleaseWeekly = newProductImpact * loadsPerWeek;
+    const weeklySaved = competitorReleaseWeekly - newProductReleaseWeekly;
+    const lifetimeSaved = weeklySaved * 52 * LIFETIME_YEARS;
+    
+    setMicroplasticsSaved({ weekly: weeklySaved, lifetime: lifetimeSaved });
   };
 
   const getVisualRepresentation = (saved: number) => {
-    if (saved >= 50) return "Equivalent to 50 plastic bottles over your lifetime";
-    if (saved >= 20) return "Equivalent to 20 credit cards over your lifetime";
-    if (saved >= 10) return "Equivalent to 10 plastic bags over your lifetime";
-    return "Equivalent to 5 credit cards over your lifetime";
+    const bottles = (saved / BOTTLE_GRAMS).toFixed(1);
+    const creditCards = (saved / CREDIT_CARD_GRAMS).toFixed(1);
+    const jugs = (saved / (JUG_KG * 1000)).toFixed(1);
+    const caps = (saved / CAP_GRAMS).toFixed(1);
+    
+    return `Equivalent to ${bottles} plastic bottles, ${creditCards} credit cards, ${jugs} 2L plastic jugs, or ${caps} bottle caps`;
   };
 
   return (
@@ -62,9 +73,11 @@ export default function TideImpactCalculator() {
           <Card className="mt-6">
             <CardContent>
               <p className="text-lg font-semibold text-gray-800">
-                Microplastics Saved: <span className="text-green-700">{microplasticsSaved} grams per week</span>
+                Microplastics Saved:
               </p>
-              <p className="text-gray-600 mt-2">{getVisualRepresentation(microplasticsSaved)}</p>
+              <p className="text-green-700">{microplasticsSaved.weekly.toFixed(2)} grams per week</p>
+              <p className="text-green-700">{microplasticsSaved.lifetime.toFixed(2)} grams over a lifetime</p>
+              <p className="text-gray-600 mt-2">{getVisualRepresentation(microplasticsSaved.lifetime)}</p>
             </CardContent>
           </Card>
         )}
